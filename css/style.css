@@ -1,0 +1,287 @@
+html, body {
+    font-size: 16px;
+    color: black;
+    font-family: Arial, Verdana, SansSerif, Helvetica, serif;
+    font-stretch: ultra-expanded;
+    padding: 0;
+    border: 0;
+    margin: auto;
+    display: block;
+}
+.page1 { /* Main page */
+    max-width: 1400px;
+    border: 0;
+    margin: auto;
+    min-width: 890px;
+}
+.div10 { /* Logo */
+    float: left;
+    min-width: 300px;
+    height: 75px;
+    margin: 10px;
+    border: 0;
+}
+.div20 { /* Phone number */
+    float: right;
+    min-width: 300px;
+    height: 75px;
+    border: 0;
+    margin: 10px;
+}
+.t21 { /* Phone image */    float: left; }
+.t22 { /* Phone text */
+    display: block;
+    float: right;
+    padding: 0 0 0 15px;
+    font-size: 20px;
+}
+.t23 { /* Phone little text size */    font-size: 12px; }
+.div25 { /* Login/cart */
+    width: 98%;
+    clear: both;
+    margin: auto;
+    padding: 0;
+}
+.col1 { width: 30%; }
+.col2 { width: 40%; text-align: center }
+.col3 { width: 30%; text-align: right }
+.div30 { /* Main menu */
+    clear: both;
+    background-image: url(../img/bg_m.png);
+    border-radius: 7px;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: bold;
+    border: 0;
+}
+.div32 { /* Main menu part2 */
+    display: inline-block;
+    margin-right: 5px;
+    border: 0;
+    padding: 3px;
+    width: 90px;
+    height: 22px;
+    color: white;
+    text-align: center;
+}
+.div32:hover { /* Main menu part3 */
+    background-image: url(../img/bg_a.png);
+}
+.div33 { /* active button */
+    display: inline-block;
+    margin-right: 5px;
+    border: 0;
+    padding: 3px;
+    width: 90px;
+    height: 22px;
+    color: white;
+    text-align: center;
+    background-image: url(../img/bg_m_a.png);
+}
+.search { /* Search field */
+    float: right;
+    margin: 2px;
+}
+.div50 { /* filter */
+    border: 0;
+    width: 19%;
+    float: left;
+}
+.t51 { width: 70px; }
+.div60 { /* content */
+    border: 0;
+    float: right;
+    width: 79%;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+}
+.div70 { /* content without left menu */
+    border: 0;
+    float: right;
+    width: 98%;
+    margin: 10px;
+    min-height: 300px;
+}
+.map { /* yandex maps */    margin: 5px; }
+.info1 { /* bottom (copyright) */    clear: both; text-align: center; }
+.div80 { /* sale */
+    border: 2px solid #ffffff;
+    width: 95%;
+    clear: both;
+    margin: 10px;
+    padding: 5px;
+    min-height: 265px;
+}
+.div80:hover { border: 2px dotted #ff5511; }
+@keyframes anim { /* sale text animation */
+    0% { color: yellow; }
+    64% { color: #ff33bb; }
+    100% { color: yellow; }
+}
+.t81 { /* sale text animation */
+    font-size: 28px;
+    text-align: center;
+    color: #ff33bb;
+    margin: 10px;
+    animation: anim 1500ms infinite;
+    text-shadow: 1px 1px 1px black;
+}
+.div404 { /* error page */ position: relative; }
+.z1 { /* error page pic */
+    position: absolute;
+    top: 80px;
+    left: 50px;
+    animation-name: spin1;
+    animation-duration: 10000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+.z2 { /* error page pic */
+    position: absolute;
+    top: 227px;
+    left: 205px;
+    animation-name: spin2;
+    animation-duration: 6667ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes spin1 { /* error page pic */
+    from { transform:rotate(0deg); }
+    to { transform:rotate(360deg); }
+}
+@keyframes spin2 { /* error page pic */
+    from { transform:rotate(360deg); }
+    to { transform:rotate(0deg); }
+}
+.div90 /* Random goods title */
+{
+    text-align: center;
+    font-size: larger;
+    font-style: italic;
+}
+.hr_rand {
+     width: 95%;
+     clear: both;
+     color: blue;
+     background-color: blue;
+     border: none;
+     height: 1px;
+ }
+.main_links { /* Links of random goods on mine page */     text-decoration: none;     color: grey; }
+.div91 /* Random goods icons */
+{
+    display: block;
+    float: left;
+    border: 1px solid white;
+    padding: 5px;
+    margin: 5px;
+    width: 360px;
+    height: 400px;
+}
+
+    .div92 { /*name*/
+         text-align: center;
+         font-size: 22px;
+         font-family: serif;
+     }
+        .div91:hover .div92{ color: black; }
+
+    .div93 { /*deskription*/
+         text-align: left;
+         font-size: 16px;
+        display: block;
+        width: 180px;
+     }
+        .div91:hover .div93{ color: black; }
+
+    .div94 { /*price*/
+        text-align: left;
+        font-size: 20px;
+        font-family: 'Play', cursive;
+     }
+        .div91:hover .div94{ color: black; }
+
+.div91:hover /* Random goods icons hover */
+{
+    border: 1px solid white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.div_mobile { display: none; }
+@media screen and (max-width: 1000px) {
+
+    .div_mobile {
+        display: block;
+        border: 1px solid red;
+        background-color: yellow;
+        text-align: center;
+        margin: 1px;
+    }
+}
+.div100 /* Short icons */{ float: left; }
+.t90 { /* login/auth window */
+
+    margin: 5px 25% 5px;
+    padding: 0%;
+}
+
+.div110 { /* add to cart block */
+    border: 0;
+    width: 380px;
+    height: auto;
+    float: right;
+}
+.div110 > a {
+    text-decoration: none;
+    font-size: 50px;
+    color: black;
+}
+.div110:hover > a { color: blue; }
+.div110:hover .arr { /* add to cart block */
+    top: -20px;
+}
+.cart { /* add to cart icon cart */
+    position: relative;
+    left: 0px;
+    top: 5px;
+    border: 0;
+    z-index: 3;
+}
+.arr { /* add to cart icon array */
+    position: relative;
+    left: -53px;
+    top: -45px;
+    border: 0;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    z-index: 5;
+}
+.div_search_result { /* Результат поисковой выдачи */
+    height: 180px;
+    border: 1px solid white;
+    text-decoration: none;
+    width: 95%;
+}
+.div_search_result:hover { /* Результат поисковой выдачи */
+    border: 1px solid white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.div_lmenu { /* left menu */
+    border: 1px solid grey;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.5);
+}
+.figure-payment {
+    float: left;
+}
+.sale_hr {
+    border: none;
+    width: 0%;
+    height: 2px;
+    color: red;
+    background-color: red;
+    float: left;
+    clear: both;
+    margin-left: 5%;
+}
