@@ -9,8 +9,8 @@ function get_error () {
 
 $pagetitle='Ошибка '.get_error();
 $menuitem='111';
-require_once '1.php'; /* begin html */
-require_once '3.php'; /* left-menu */
+require_once '1.php';
+require_once '3.php';
 ?>
 <div class="div404">
     <span style="font-size: 5em;">Ошибка

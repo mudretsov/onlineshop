@@ -1,9 +1,5 @@
-#redirect to our pages
 ErrorDocument 404 /error.php?404
 ErrorDocument 403 /error.php?403
-# UTF-8
 AddDefaultCharset utf-8
-# 403 to folders
+
 options -indexes
-#
-#options +multiviews

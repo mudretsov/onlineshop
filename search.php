@@ -4,7 +4,10 @@ $menuitem='1';
 require_once '1.php'; /* begin html */
 require_once '3.php'; /* left-menu */
 require 'db_connect.php';
-echo search_items($_GET['search']);
+
+echo search_items($_GET['search'])['0'];
+echo search_items($_GET['search'])['2'];
+echo search_items($_GET['search'])['1'];
 ?>
 
 

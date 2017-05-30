@@ -1,24 +1,16 @@
 <?php
 require 'config.php';
 $connect = mysql_connect($server, $user, $password);
+function connectToDb() {
+    global $server, $user, $password, $db;
+    mysql_connect($server, $user, $password);
+    mysql_select_db($db);
+    return $db;
+}
 if ($connect) {
-    /* Возвращает короткое описание для товаров по ID !!! доделать !!! */
-    function get_short_goods_from_db_by_id($id1) { 
-        $id = (int) $id1;
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
-        $query = mysql_query('SELECT * FROM ' . $db . '.goods WHERE id=' . $id);
-        $res = mysql_fetch_array($query);
-
-        $ret = '<table border="0"><tr><td style="min-width: 200px;"><img src="' . $res['photo'] . '" style="float: left; width: 180px; height: 350px;"></td><td style="min-width: 200px;">' . $res['name'] . '<br>Цена:' . $res['price'] . '</td></tr></table>';
-        return $ret;
-    }
     /* Возвращает таблицу случайных товаров по количеству на главной */
-    function get_random_goods($count) { 
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+    function get_random_goods($count) {
+        $db = connectToDb();
         $query = mysql_query('SELECT * FROM ' . $db . '.goods ORDER BY RAND() LIMIT ' . $count);
         $ret = '';
         while (false != ($res = mysql_fetch_array($query))) {
@@ -37,28 +29,22 @@ if ($connect) {
             return $ret;
     }
     /* Возвращает тип пользователя (admin/no) */
-    function type_of_user ($mail) { 
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+    function type_of_user ($mail) {
+        $db = connectToDb();
         $query = mysql_query('SELECT type FROM ' . $db . '.users WHERE mail="'.$mail.'"');
         $res = mysql_fetch_array($query);
         return $res['type'];
     }
     /* Возвращает дату регистрации пользователя */
-    function date_of_reg ($mail) { 
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+    function date_of_reg ($mail) {
+        $db = connectToDb();
         $query = mysql_query('SELECT time FROM '.$db.'.users WHERE mail="'.$mail.'"');
         $res = mysql_fetch_array($query);
         return $res['time'];
     }
     /* Возвращает список всех товаров в таблице с возможностью ред/удал */
-    function get_all_goods () { 
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+    function get_all_goods () {
+        $db = connectToDb();
         $query = mysql_query('SELECT * FROM ' . $db . '.goods');
         $ret=' ';
         while (false != ($res = mysql_fetch_array($query))) {
@@ -77,9 +63,7 @@ if ($connect) {
     /* Возвращает карточку одного товара по id */
     function goods_by_id ($id1) { 
         $id = (int) $id1;
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+        $db = connectToDb();
         $query = mysql_query('SELECT * FROM ' . $db . '.goods WHERE id=' . $id);
         $res = mysql_fetch_array($query);
         if (!empty($res['photo'])) {
@@ -106,9 +90,7 @@ if ($connect) {
     /* Возвращает в массиве значения одного товара по id, для редактирования. */
     function edit_by_id ($id1) { 
         $id = (int) $id1;
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+        $db = connectToDb();
         $query = mysql_query('SELECT * FROM ' . $db . '.goods WHERE id=' . $id);
         $res = mysql_fetch_array($query);
         $ret = array (name => $res['name'], description => $res['description'], price => $res['price'], vendor => $res['vendor'], os => $res['os'], photo => $res['photo']);
@@ -117,9 +99,7 @@ if ($connect) {
     /* Добавляет товар */
     function add_item ($name, $description1, $price, $vendor, $os, $photo) { 
         $description = mysql_real_escape_string(trim(htmlspecialchars($description1, ENT_QUOTES, 'UTF-8')));
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+        $db = connectToDb();
         mysql_query('INSERT INTO '.$db.'.goods (name, description, price, vendor, os, photo) VALUES ("'.$name.'", "'.$description.'", "'.$price.'", "'.$vendor.'", "'.$os.'", "'.$photo.'")');
         $query = mysql_query('SELECT id FROM '.$db.'.goods WHERE photo="'.$photo.'"');
         $id = mysql_fetch_array($query);
@@ -128,9 +108,7 @@ if ($connect) {
     /* Удаляет товар */
     function delete_item_by_id($id1) { 
         $id = (int) $id1;
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+        $db = connectToDb();
         $res = mysql_query ('SELECT name, photo FROM '.$db.'.goods WHERE id="'.$id.'"');
         $name = mysql_fetch_array($res);
         unlink(__DIR__.DIRECTORY_SEPARATOR.'goods'.DIRECTORY_SEPARATOR.$name['photo']);
@@ -142,9 +120,7 @@ if ($connect) {
     /* Запись значения отредактированного товара */
     function edit_item ($name, $description1, $price, $vendor, $os, $id){
         $description = mysql_real_escape_string(trim(htmlspecialchars($description1, ENT_QUOTES, 'UTF-8')));
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+        $db = connectToDb();
         mysql_query ('UPDATE '.$db.'.goods SET name="'.$name.'", description="'.$description.'", price="'.$price.'", vendor="'.$vendor.'", os="'.$os.'" WHERE id='.$id);
         return $id;
     }
@@ -152,12 +128,13 @@ if ($connect) {
     function search_items($q1) { 
         $q = mysql_real_escape_string(trim(htmlspecialchars($q1, ENT_QUOTES, 'UTF-8')));
         if (!empty($q)) {
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+            $db = connectToDb();
         $query = mysql_query('SELECT * FROM ' . $db . '.goods WHERE name LIKE "%'.$q.'%" OR description LIKE "%'.$q.'%" OR price LIKE "%'.$q.'%" OR vendor LIKE "%'.$q.'%" OR os LIKE "%'.$q.'%"');
-        $ret='<h2>Поиск по фразе "'.$q.'"</h2>';
+        $head = '<h2>Поиск по фразе "'.$q.'"</h2>';
+        $ret='';
+        $i = 0;
         while (false != ($res = mysql_fetch_array($query))) {
+            $i++;
             $ret=$ret.' <br>
             <a href="/goods.php?id='.$res['id'].'" style="text-decoration: none;">
             <div class="div_search_result">
@@ -167,16 +144,16 @@ if ($connect) {
                 <p style="color: #4c4c4c;">Цена: '.$res['price'].' руб</p>
             </div></a>            
             ';
-        }} else { $ret='<h1><p>Введён пустой поисковый запрос</p></h1>'; }
-        if ($ret == '<h2>Вашей поисковой фразе соответствуют:</h2>') { $ret = '<h1><p>Товаров по фразе "'.$q.'" не нашлось.</p></h1>'; }
-        return $ret;
+        }
+        $count = '<h5>Количество результатов: '.$i.'</h5>';
+        } else { $ret='<h1><p>Введён пустой поисковый запрос</p></h1>'; }
+        if ($ret == '') { $head = NULL; $count = NULL; $ret = '<h1 style="text-align: center;"><p>Товаров по фразе "'.$q.'" не нашлось.</p></h1>'; }
+        return [$head, $ret, $count];
     }
     /* Возвращает таблицу с товарами и суммой покупки */
     function items_in_cart ($IDs) {
         $full_price = 0;
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+        $db = connectToDb();
         $ret = '<table width="100%" border="1px"><tr><td>Название товара</td><td>Стоимость</td><td></td></tr>';
         foreach ($IDs as $value) {
             $id = (int)$value;
@@ -194,9 +171,7 @@ if ($connect) {
     }
     /* Заносит строку с id покупок в БД */
     function buy_items ($string) {
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+        $db = connectToDb();
         $orders = (string)$string;
         $query1 = mysql_query('SELECT orders FROM ' . $db . '.users WHERE mail="'.$_COOKIE['login'].'"');
         $res1 = mysql_fetch_array($query1);
@@ -206,18 +181,14 @@ if ($connect) {
     }
     /* Получить предыдущие покупки пользователя */
     function get_last_orders() {
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+        $db = connectToDb();
         $query = mysql_query('SELECT orders FROM ' . $db . '.users WHERE mail="'.$_COOKIE['login'].'"');
         $res = mysql_fetch_array($query);
         return $res['orders'];
     }
     /* Список предыдушщих покупок */
     function get_table_of_last_orders ($array) {
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+        $db = connectToDb();
         $ret = '';
         foreach ($array as $value) {
         $query = mysql_query('SELECT name FROM ' . $db . '.goods WHERE id="'.$value.'"');
@@ -231,9 +202,7 @@ if ($connect) {
         if (empty($pmin)) {$pmin =0;}
         if (empty($pmax)) {$pmax =999999999;}
 
-        global $server, $user, $password, $db;
-        mysql_connect($server, $user, $password);
-        mysql_select_db($db);
+        $db = connectToDb();
         $ret = '';
         if (isset($array)){
         foreach ($array as $value1) {

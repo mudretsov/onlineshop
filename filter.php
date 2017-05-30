@@ -10,7 +10,6 @@ foreach ($_GET as $key => $value){
     $array_f[] = $key;
 }
 echo get_filter($array_f, $pmin, $pmax);
-$temp = trim(htmlspecialchars($temp1, ENT_QUOTES, 'UTF-8'))
 ?>
 
 
