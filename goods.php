@@ -1,4 +1,5 @@
 <?php
+require 'check_db.php';
 if ($_GET['id'] == NULL) { header ('location: /'); die; }
 require 'db_connect.php';
 $id = (int) $_GET['id'];
@@ -14,13 +15,4 @@ if (type_of_user($_COOKIE['login']) == 'admin') {
     <a href="db_edit.php?edit='.$id.'" style="font-size: 35px;">Редактировать</a>
     ';
 }
-?>
-
-
-
-
-
-
-
-
-<?php require_once '2.php'?>
+require_once '2.php'?>

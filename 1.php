@@ -1,4 +1,5 @@
 <?php
+require 'check_db.php';
 session_start();
 $items = $_COOKIE['goods_in_cart'];
 $cart_counter = (int)count(explode (',', $items)) - 1;

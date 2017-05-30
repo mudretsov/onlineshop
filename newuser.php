@@ -1,4 +1,5 @@
 <?php
+require 'check_db.php';
 session_start();
 require_once 'func.php';
 require_once 'config.php';
