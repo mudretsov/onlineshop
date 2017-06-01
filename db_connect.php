@@ -108,13 +108,15 @@ if ($connect) {
     /* Удаляет товар */
     function delete_item_by_id($id1) { 
         $id = (int) $id1;
+        if ($id >=35) {
         $db = connectToDb();
         $res = mysql_query ('SELECT name, photo FROM '.$db.'.goods WHERE id="'.$id.'"');
         $name = mysql_fetch_array($res);
         unlink(__DIR__.DIRECTORY_SEPARATOR.'goods'.DIRECTORY_SEPARATOR.$name['photo']);
         $a = mysql_query ('DELETE FROM '.$db.'.goods WHERE id="'.$id.'"');
         if ($a) {$res = 'Товар '.$name['name'].' с id='.$id.' был полностью удалён.'; }
-        else { $res = 'Ошибка при удалении товара '.$name['name'].' с id='.$id; }
+        else { $res = 'Ошибка при удалении товара '.$name['name'].' с id='.$id; }}
+        else {$res = 'Первые 35 товаров удалять нельзя, чтобы хоть что-то осталось для демонстрации работоспособности сайта.';}
         return $res;
     }
     /* Запись значения отредактированного товара */
