@@ -1,5 +1,6 @@
 <div class="div50">
     <form action="filter.php" method="get">
+        <!-- Производитель -->
         <fieldset class="div_lmenu">
             <legend>Производитель</legend>
             <?php
@@ -10,10 +11,12 @@
                 mysql_select_db($db);
                 $query = mysql_query('SELECT DISTINCT vendor FROM ' . $db . '.goods ORDER BY vendor ASC');
                 $ret=' ';
+                $i = 0;
                 while (false != ($res = mysql_fetch_array($query))) {
-                    $ret=$ret.'<input type="checkbox" name="'.$res['vendor'].'"';
+                    $i++;
+                    $ret=$ret.'<input type="checkbox" id="checkdev'.$i.'" name="'.$res['vendor'].'"';
                     if (isset($_GET[$res['vendor']])) { $ret = $ret.' checked'; }
-                    $ret=$ret.'>'.$res['vendor'].'<br>
+                    $ret=$ret.'><label for="checkdev'.$i.'" class="lmenutext">'.$res['vendor'].'</label><br>
             ';
                 }
                 return $ret;
@@ -22,6 +25,7 @@
             echo get_active_vendors();
             ?>
         </fieldset><br>
+        <!-- Цена -->
         <fieldset class="div_lmenu">
             <legend>Цена</legend>
 
@@ -46,6 +50,7 @@
             <div>От <br><input type="number" name="pmin" placeholder="<?php echo $price['min']; ?>" class="t51" <?php  if (!empty($_GET['pmin'])) { $pmin = (int)$_GET['pmin']; echo 'value="'.$pmin.'"'; } ?>></div>
             <div>До <br><input type="number" name="pmax" placeholder="<?php echo $price['max']; ?>" class="t51" <?php  if (!empty($_GET['pmax'])) { $pmax = (int)$_GET['pmax']; echo 'value="'.$pmax.'"'; } ?>><br></div>
         </fieldset><br>
+        <!-- Операционная система -->
         <fieldset class="div_lmenu">
             <legend>Операционная система</legend>
 
@@ -57,12 +62,14 @@
                 mysql_select_db($db);
                 $query = mysql_query('SELECT DISTINCT os FROM ' . $db . '.goods ORDER BY os ASC');
                 $ret='';
+                $i=0;
                 while (false != ($res = mysql_fetch_array($query))) {
+                    $i++;
                     $os= mb_convert_encoding($res['os'], "UTF-8", mb_detect_encoding($res['os']));
-                    $ret=$ret.'<input type="checkbox" 
+                    $ret=$ret.'<input type="checkbox" id="checkos'.$i.'"
                     name="'.$os.'"';
                     if (isset($_GET[$res['os']])) { $ret = $ret.' checked'; }
-                    $ret=$ret.'>'.$res['os'].'<br>
+                    $ret=$ret.'><label for="checkos'.$i.'" class="lmenutext">'.$res['os'].'</label><br>
             ';
                 }
                 return $ret;

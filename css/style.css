@@ -284,3 +284,5 @@ html, body {
     margin-left: 5%;
 }
 .shop {display: none;}
+.lmenutext {  }
+.lmenutext:hover { text-decoration: underline; }
